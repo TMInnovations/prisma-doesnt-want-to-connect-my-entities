@@ -1,0 +1,24 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://admin:admin@localhost:5432/admin?schema=public"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Human {
+  id String @id @default(cuid())
+
+  cats Cat[]
+}
+
+model Cat {
+  id String @id @default(cuid())
+
+  human    Human?  @relation(fields: [id_human], references: [id])
+  id_human String?
+}
